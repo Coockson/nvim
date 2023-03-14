@@ -1,0 +1,86 @@
+# Neovim Editor configuration
+
+This repository configures Neovim to my preferred setup. 
+
+![Example of this repo in Neovim](./img/example.png)
+
+
+
+## Initialization
+
+### Step 1
+If you dont have Neovim, first install Neovim
+
+**MacOS**
+
+`brew install neovim`
+
+**Other OS**
+
+Check [neovim's documentation](https://github.com/neovim/neovim/wiki/Installing-Neovim)
+
+---
+### Step 2
+
+This repo should be cloned into `~/.config/nvim/`
+
+---
+
+### Step 3
+
+To install the plugins listed in the init.vim file run:
+```
+:PlugInstall
+```
+
+## Shortcuts
+
+- `<Leader>t` toggle nerdtree
+- `<Leader>p` goto definition
+- `<Leader>o` go back (inverse goto definition)
+- `<Leader>f` Ag search. Global word search
+- `<Leader>b` active buffer list
+- `<Leader>g` git changes 
+- `<Leader>d` Search directory (file) names 
+- `Enter`         autocomplete suggested
+- `Control + Space` (insert mode) Show fields / autocomplete
+- `control + v` block copy (default behaviour) 
+- `control + c` copy to clipboard 
+
+- `<Leader>s`		Move to beginning
+- `<Leader>l`		Move to end
+
+## Commonly used commands
+
+- `:MarkdownPreview` show preview in a browser 
+- `Control + z` to pause nvim and return to terminal
+- `fg + Enter` to return to nvim
+- To indent multiple times:
+	- select block
+	- `>>`    (this will indent once)
+	- `.`     (dot redo last command)
+
+## Useful movement tips
+
+- H		move top of the screen
+- M		move middle of the screen
+- L		move bottom of the screen
+- mx	mark current line
+- 'x	jump to mark
+
+# Custom Lua Plugins
+
+The custom lua plugins are separated into the following categories
+
+## Foundation
+This folder contains the foundational plugins that make Neovim act the way I want it to.
+Currently it contains:
+- **refresh_change**: Refreshes the buffer when there is a change in the buffer.
+
+## Linters
+This folder contains all the language specific linters and formatters.
+Currently it contains:
+
+- **python_black**: On saving a python file, uses __black__ to format the file.
+- **terraform_fmt**: On saving a terraform file, it formats the tf file.
+
