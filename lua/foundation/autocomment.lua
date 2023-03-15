@@ -1,3 +1,7 @@
+--  This plugin makes commenting and uncommenting 
+--  easier by enabling language specific block and
+--  single line comments
+
 local py = "# "
 local ts = "\\/\\/ "
 local lua = "-- "
@@ -29,7 +33,7 @@ vim.api.nvim_create_user_command("AutoComment", function()
  	]], line1, line2, commentSign)
  	vim.cmd(command)
 
-end, {bang = true})
+end, {})
 
 vim.api.nvim_create_user_command("AutoUncomment", function()
 	line1 = vim.api.nvim_buf_get_mark(0, "<")[1]
