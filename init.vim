@@ -8,6 +8,7 @@
 lua require('linters/python_black')
 lua require('linters/terraform_fmt')
 lua require('foundation/refresh_change')
+lua require('foundation/autocomment')
 
 " --- Basic editor configs ---
 
@@ -58,6 +59,7 @@ call plug#end()
 
 " mapping : to ; because I use ISO keyboard layout
 nnoremap ; :
+vnoremap ; :
 
 " Mapping window movements to leader
 nnoremap <Leader>ww :winc w<CR> 
@@ -74,7 +76,21 @@ vnoremap <Leader>l $
 
 " Make TAB indent in normal mode
 nnoremap <Leader>. >>
-nnoremap <Leader>,  <<
+vnoremap <Leader>. >>
+nnoremap <Leader>, <<
+vnoremap <Leader>, <<
+
+" Comment shortcuts
+nnoremap <Leader>cb :AutoComment<CR>
+nnoremap <Leader>cv :AutoUncomment<CR>
+nnoremap <Leader>cc :CommentSingleLine<CR>
+nnoremap <Leader>cx :UncommentSingleLine<CR>
+vnoremap <Leader>cb :AutoComment<CR>
+vnoremap <Leader>cv :AutoUncomment<CR>
+vnoremap <Leader>cc :CommentSingleLine<CR>
+vnoremap <Leader>cx :UncommentSingleLine<CR>
+
+
 
 " Working with tabs
 nnoremap <Tab> gt
