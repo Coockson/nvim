@@ -2,23 +2,29 @@
 --  easier by enabling language specific block and
 --  single line comments
 
-local py = "# "
-local ts = "\\/\\/ "
-local lua = "-- "
-local tf = "# "
+-- Comment signs
+local hash = "# "
+local slash = "\\/\\/ "
+local dash = "-- "
 
+
+-- Add the file types and the corresponding comment sign
 function getCommentSign (s)
 
 	if s == ".lua" then
-		return lua
+		return dash 
 	elseif s == ".py" then
-		return py
+		return hash 
 	elseif s == ".ts" then
-		return ts
+		return slash 
 	elseif s == ".js" then
-		return py
+		return slash 
 	elseif s == ".tf" then
-		return tf
+		return hash 
+	elseif s == ".yaml" then
+		return hash 
+	elseif s == ".yml" then
+		return hash 
 	end
 end
 
