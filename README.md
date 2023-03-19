@@ -50,6 +50,23 @@ To install the plugins listed in the init.vim file run:
 - `<Leader>s`		Move to beginning
 - `<Leader>l`		Move to end
 
+- `<Leader>cc` Comment single line
+- `<Leader>cx` Uncomment single line
+- `<Leader>cb` Comment previous visual block
+- `<Leader>cv` Uncomment previous visual block
+
+- `gd` GoTo definition
+- `gi` GoTo implementation 
+- `gr` List and GoTo referenced instances 
+- `gt` GoTo type definition 
+
+- `<Leader>r` format selected code
+
+- `<Leader>wH` move window left
+- `<Leader>wJ` move window down 
+- `<Leader>wK` move window up
+- `<Leader>wL` move window right
+
 ## Commonly used commands
 
 - `:MarkdownPreview` show preview in a browser 

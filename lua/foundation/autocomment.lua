@@ -1,4 +1,4 @@
---  This plugin makes commenting and uncommenting 
+--  This plugin makes commenting and uncommenting
 --  easier by enabling language specific block and
 --  single line comments
 
@@ -12,19 +12,19 @@ local dash = "-- "
 function getCommentSign (s)
 
 	if s == ".lua" then
-		return dash 
+		return dash
 	elseif s == ".py" then
-		return hash 
+		return hash
 	elseif s == ".ts" then
-		return slash 
+		return slash
 	elseif s == ".js" then
-		return slash 
+		return slash
 	elseif s == ".tf" then
-		return hash 
+		return hash
 	elseif s == ".yaml" then
-		return hash 
+		return hash
 	elseif s == ".yml" then
-		return hash 
+		return hash
 	end
 end
 
@@ -33,7 +33,7 @@ vim.api.nvim_create_user_command("AutoComment", function()
 	line2 = vim.api.nvim_buf_get_mark(0, ">")[1]
 	fileType = vim.api.nvim_buf_get_name(0):match("^.+(%..+)$")
 	commentSign = getCommentSign(fileType)
- 	command = string.format([[
+	command = string.format([[
  		%d,%ds/^/%s/
  		noh
  	]], line1, line2, commentSign)
@@ -48,11 +48,11 @@ vim.api.nvim_create_user_command("AutoUncomment", function()
 
 	commentSign = getCommentSign(fileType)
 
- 	command = string.format([[
+	command = string.format([[
  		%d,%ds/%s//
  		noh
  	]], line1, line2, commentSign)
- 	vim.cmd(command)
+	vim.cmd(command)
 
 end, {})
 
@@ -61,7 +61,7 @@ vim.api.nvim_create_user_command("CommentSingleLine", function()
 
 	commentSign = getCommentSign(fileType)
 
- 	command = string.format([[
+	command = string.format([[
  		s/^/%s/
  		noh
  	]], commentSign)
@@ -74,7 +74,7 @@ vim.api.nvim_create_user_command("UncommentSingleLine", function()
 
 	commentSign = getCommentSign(fileType)
 
- 	command = string.format([[
+	command = string.format([[
  		s/%s//
  		noh
  	]], commentSign)

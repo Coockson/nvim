@@ -21,6 +21,7 @@ lua require('foundation/autocomment')
 :set mouse=a
 :set updatetime=50
 :set clipboard+=unnamedplus
+:set laststatus=3
 :let mapleader=" "
 
 
@@ -62,13 +63,19 @@ nnoremap ; :
 vnoremap ; :
 
 " Mapping window movements to leader
-nnoremap <Leader>ww :winc w<CR> 
+nnoremap <Leader>ww :winc w<CR>
 nnoremap <Leader>wl :winc l<CR>
 nnoremap <Leader>wh :winc h<CR>
 nnoremap <Leader>wj :winc j<CR>
 nnoremap <Leader>wk :winc k<CR>
 
-" Move beginning and end 
+" Moving the windows
+nnoremap <Leader>wH <c-w>H
+nnoremap <Leader>wJ <c-w>J
+nnoremap <Leader>wK <c-w>K
+nnoremap <Leader>wL <c-w>L
+
+" Move beginning and end
 nnoremap <Leader>s ^
 vnoremap <Leader>s ^
 nnoremap <Leader>l $
@@ -214,15 +221,15 @@ let g:airline_symbols.linenr = ''
 " ----- Highlights (treesitter) -----
 
 lua << EOF
-require("nvim-treesitter.configs").setup({
-    ensure_installed = { "terraform", "hcl", "python", "yaml", "javascript", "typescript", "lua", "vim", "json", "html", "tsx" },
-	ignore_install = { "markdown" },
-    sync_install = false,
-    auto_install = true,
-    highlight = {
-        enable = true,
-    },
-})
+	require("nvim-treesitter.configs").setup({
+		ensure_installed = { "terraform", "hcl", "python", "yaml", "javascript", "typescript", "lua", "vim", "json", "html", "tsx" },
+		ignore_install = { "markdown" },
+		sync_install = false,
+		auto_install = true,
+		highlight = {
+			enable = true,
+		},
+	})
 EOF
 
 

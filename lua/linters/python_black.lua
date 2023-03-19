@@ -3,7 +3,7 @@
 
 
 vim.api.nvim_create_autocmd("BufWritePost", {
-	group = vim.api.nvim_create_augroup("linters", { clear = true }),
+	group = vim.api.nvim_create_augroup("py_linter", { clear = true }),
 	pattern = "*.py",
 	callback = function()
 		vim.fn.jobstart({"black", vim.api.nvim_buf_get_name(0)},{

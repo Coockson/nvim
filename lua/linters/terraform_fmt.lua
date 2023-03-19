@@ -3,7 +3,7 @@
 
 
 vim.api.nvim_create_autocmd("BufWritePost", {
-	group = vim.api.nvim_create_augroup("linters", { clear = true }),
+	group = vim.api.nvim_create_augroup("tf_linter", { clear = true }),
 	pattern = "*.tf",
 	callback = function()
 		vim.fn.jobstart({"terraform", "fmt", vim.api.nvim_buf_get_name(0)},{
