@@ -25,6 +25,8 @@ function getCommentSign (s)
 		return hash
 	elseif s == ".yml" then
 		return hash
+	elseif s == ".rs" then
+		return slash 
 	end
 end
 

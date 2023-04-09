@@ -41,7 +41,6 @@ Plug 'https://github.com/ap/vim-css-color' " CSS Color Preview
 Plug 'https://github.com/rafi/awesome-vim-colorschemes' " Retro Scheme
 Plug 'https://github.com/neoclide/coc.nvim'  " Auto Completion
 Plug 'https://github.com/ryanoasis/vim-devicons' " Developer Icons
-Plug 'https://github.com/tc50cal/vim-terminal' " Vim Terminal
 Plug 'https://github.com/preservim/tagbar' " Tagbar for code navigation
 Plug 'https://github.com/terryma/vim-multiple-cursors' " CTRL + N for multiple cursors
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -49,6 +48,8 @@ Plug 'junegunn/fzf.vim'
 Plug 'https://github.com/tpope/vim-fugitive'
 Plug 'https://github.com/iamcco/markdown-preview.nvim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.1' }
 
 set encoding=UTF-8
 
@@ -97,7 +98,11 @@ vnoremap <Leader>cv :AutoUncomment<CR>
 vnoremap <Leader>cc :CommentSingleLine<CR>
 vnoremap <Leader>cx :UncommentSingleLine<CR>
 
-
+" Find files using Telescope command-line sugar.
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 
 " Working with tabs
 nnoremap <Tab> gt
@@ -123,7 +128,9 @@ nnoremap <Leader>mm 'x
 " inoremap <silent><expr> <C-r>:call CocActionAsync('showSignatureHelp')<CR>
 
 " NERTree toggles
-nnoremap <Leader>t :NERDTreeToggle<CR>
+nnoremap <Leader>n :NERDTreeToggle<CR>
+nnoremap <Leader>t :terminal<CR>
+tnoremap <Esc> <C-\><C-n>
 
 " GOTO Definition
 nnoremap <Leader>p :call CocActionAsync('jumpDefinition')<CR>
@@ -131,11 +138,11 @@ nnoremap <Leader>o <C-o><CR>
 
 
 " See git files
-nnoremap <Leader>d :GFiles<CR>
+" nnoremap <Leader>d :GFiles<CR>
 " Search in all files
-nnoremap <Leader>f :Ag<CR>
+" nnoremap <Leader>f :Ag<CR>
 " See open buffers (editors)
-nnoremap <Leader>b :Buffers<CR>
+" nnoremap <Leader>b :Buffers<CR>
 
 " COPY
 " copy selected to clipboard
