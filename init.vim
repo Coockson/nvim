@@ -129,7 +129,7 @@ nnoremap <Leader>mm 'x
 
 " NERTree toggles
 nnoremap <Leader>n :NERDTreeToggle<CR>
-nnoremap <Leader>t :terminal<CR>
+nnoremap <Leader>t :StartTerminal<CR>
 tnoremap <Esc> <C-\><C-n>
 
 " GOTO Definition
