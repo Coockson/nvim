@@ -9,6 +9,7 @@ lua require('linters/python_black')
 lua require('linters/terraform_fmt')
 lua require('foundation/refresh_change')
 lua require('foundation/autocomment')
+lua require('foundation/terminal')
 
 " --- Basic editor configs ---
 
