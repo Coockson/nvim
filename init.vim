@@ -23,6 +23,7 @@ lua require('foundation/terminal')
 :set updatetime=50
 :set clipboard+=unnamedplus
 :set laststatus=3
+:set splitbelow
 :let mapleader=" "
 
 
