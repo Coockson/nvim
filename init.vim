@@ -6,7 +6,7 @@
 " --- Custom Lua plugins ---
 
 lua require('linters/python_black')
-lua require('linters/terraform_fmt')
+" lua require('linters/terraform_fmt')
 lua require('foundation/refresh_change')
 lua require('foundation/autocomment')
 lua require('foundation/terminal')
@@ -24,6 +24,7 @@ lua require('foundation/terminal')
 :set clipboard+=unnamedplus
 :set laststatus=3
 :set splitbelow
+:set winbar=%=%m\ %f
 :let mapleader=" "
 
 
@@ -52,6 +53,8 @@ Plug 'https://github.com/iamcco/markdown-preview.nvim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.1' }
+Plug 'fannheyward/telescope-coc.nvim'
+Plug 'tomasiser/vim-code-dark' " VS Code colorscheme
 
 set encoding=UTF-8
 
@@ -102,9 +105,13 @@ vnoremap <Leader>cx :UncommentSingleLine<CR>
 
 " Find files using Telescope command-line sugar.
 nnoremap <leader>ff <cmd>Telescope find_files<cr>
-nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fg <cmd>Telescope grep_string<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+nnoremap <Leader>gs <cmd>Telescope git_status<cr>
+nnoremap <Leader>gb <cmd>Telescope git_branches<cr>
+nnoremap <Leader>gc <cmd>Telescope git_commits<cr>
+nnoremap <Leader>s <cmd>Telescope current_buffer_fuzzy_find<cr>
 
 " Working with tabs
 nnoremap <Tab> gt
@@ -153,7 +160,6 @@ vnoremap <C-c> "+y<CR>
 nnoremap <C-c> "+y<CR>
 
 " See git changes
-nnoremap <Leader>g :GF?<CR>
 
 " nnoremap <C-c> :bd<CR>
 nnoremap <C-s> :TerminalVSplit zsh<CR>
@@ -165,7 +171,22 @@ nnoremap <C-s> :TerminalVSplit zsh<CR>
 
 " --- Colorschemes ---
 
-:colorscheme jellybeans
+" ----------------------------- VS Code theme related settings -------------------------------------
+:colorscheme codedark																			  "-
+:set t_Co=256																					  "-
+:set t_ut=																						  "-
+" If you don't like many colors and prefer the conservative style of the standard Visual Studio   "-
+let g:codedark_conservative=1																      "-
+" Activates italicized comments (make sure your terminal supports italics)						  "-
+let g:codedark_italics=1																		  "-
+" Make the background transparent																  "-
+let g:codedark_transparent=1																	  "-
+" If you have vim-airline, you can also enable the provided theme                                 "-
+let g:airline_theme = 'codedark'																  "-
+" --------------------------------------------------------------------------------------------------
+
+
+" :colorscheme jellybeans
 
 
 " :colorscheme wombat256mod
@@ -241,6 +262,11 @@ lua << EOF
 	})
 EOF
 
+" Telescope settings
+
+lua << EOF
+	require('telescope').load_extension('coc')
+EOF
 
 " --- Coc Keybindings ---
 "  Copied from https://github.com/neoclide/coc.nvim
