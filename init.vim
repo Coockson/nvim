@@ -21,11 +21,16 @@ lua require('foundation/terminal')
 :set softtabstop=4
 :set mouse=a
 :set updatetime=50
-:set clipboard+=unnamedplus
 :set laststatus=3
 :set splitbelow
 :set winbar=%=%m\ %f
 :let mapleader=" "
+
+if has("unnamedplus")
+    set clipboard=unnamedplus
+else
+    set clipboard=unnamed
+endif
 
 
 " --- External Plugins ---
@@ -49,7 +54,7 @@ Plug 'https://github.com/terryma/vim-multiple-cursors' " CTRL + N for multiple c
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'https://github.com/tpope/vim-fugitive'
-Plug 'https://github.com/iamcco/markdown-preview.nvim'
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.1' }
@@ -105,7 +110,7 @@ vnoremap <Leader>cx :UncommentSingleLine<CR>
 
 " Find files using Telescope command-line sugar.
 nnoremap <leader>ff <cmd>Telescope find_files<cr>
-nnoremap <leader>fg <cmd>Telescope grep_string<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 nnoremap <Leader>gs <cmd>Telescope git_status<cr>
