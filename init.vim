@@ -6,7 +6,7 @@
 " --- Custom Lua plugins ---
 
 lua require('linters/python_black')
-" lua require('linters/terraform_fmt')
+lua require('linters/terraform_fmt')
 lua require('foundation/refresh_change')
 lua require('foundation/autocomment')
 lua require('foundation/terminal')
@@ -60,6 +60,7 @@ Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.1' }
 Plug 'fannheyward/telescope-coc.nvim'
 Plug 'tomasiser/vim-code-dark' " VS Code colorscheme
+Plug 'MunifTanjim/nui.nvim'
 
 set encoding=UTF-8
 
