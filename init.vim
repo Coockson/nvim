@@ -10,6 +10,7 @@ lua require('linters/terraform_fmt')
 lua require('foundation/refresh_change')
 lua require('foundation/autocomment')
 lua require('foundation/terminal')
+lua require('foundation/popup_terminal')
 lua require('git/commit')
 
 " --- Basic editor configs ---
@@ -146,7 +147,7 @@ nnoremap <Leader>mm 'x
 
 " NERTree toggles
 nnoremap <Leader>n :NERDTreeToggle<CR>
-nnoremap <Leader>t :StartTerminal<CR>
+nnoremap <Leader>t :PopTerminal<CR>
 tnoremap <Esc> <C-\><C-n>
 
 " GOTO Definition
