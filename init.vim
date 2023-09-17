@@ -6,10 +6,12 @@
 " --- Custom Lua plugins ---
 
 lua require('linters/python_black')
-" lua require('linters/terraform_fmt')
+lua require('linters/terraform_fmt')
 lua require('foundation/refresh_change')
 lua require('foundation/autocomment')
 lua require('foundation/terminal')
+lua require('foundation/popup_terminal')
+lua require('git/commit')
 
 " --- Basic editor configs ---
 
@@ -21,11 +23,17 @@ lua require('foundation/terminal')
 :set softtabstop=4
 :set mouse=a
 :set updatetime=50
-:set clipboard+=unnamedplus
 :set laststatus=3
 :set splitbelow
 :set winbar=%=%m\ %f
 :let mapleader=" "
+:let g:airline#extensions#tabline#enabled = 1
+
+if has("unnamedplus")
+    set clipboard=unnamedplus
+else
+    set clipboard=unnamed
+endif
 
 
 " --- External Plugins ---
@@ -49,12 +57,13 @@ Plug 'https://github.com/terryma/vim-multiple-cursors' " CTRL + N for multiple c
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'https://github.com/tpope/vim-fugitive'
-Plug 'https://github.com/iamcco/markdown-preview.nvim'
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.1' }
 Plug 'fannheyward/telescope-coc.nvim'
 Plug 'tomasiser/vim-code-dark' " VS Code colorscheme
+Plug 'MunifTanjim/nui.nvim'
 
 set encoding=UTF-8
 
@@ -105,12 +114,12 @@ vnoremap <Leader>cx :UncommentSingleLine<CR>
 
 " Find files using Telescope command-line sugar.
 nnoremap <leader>ff <cmd>Telescope find_files<cr>
-nnoremap <leader>fg <cmd>Telescope grep_string<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 nnoremap <Leader>gs <cmd>Telescope git_status<cr>
 nnoremap <Leader>gb <cmd>Telescope git_branches<cr>
-nnoremap <Leader>gc <cmd>Telescope git_commits<cr>
+nnoremap <Leader>gh <cmd>Telescope git_commits<cr>
 nnoremap <Leader>s <cmd>Telescope current_buffer_fuzzy_find<cr>
 
 " Working with tabs
@@ -138,7 +147,7 @@ nnoremap <Leader>mm 'x
 
 " NERTree toggles
 nnoremap <Leader>n :NERDTreeToggle<CR>
-nnoremap <Leader>t :StartTerminal<CR>
+nnoremap <Leader>t :PopTerminal<CR>
 tnoremap <Esc> <C-\><C-n>
 
 " GOTO Definition
@@ -147,11 +156,7 @@ nnoremap <Leader>o <C-o><CR>
 
 
 " See git files
-" nnoremap <Leader>d :GFiles<CR>
-" Search in all files
-" nnoremap <Leader>f :Ag<CR>
-" See open buffers (editors)
-" nnoremap <Leader>b :Buffers<CR>
+nnoremap <Leader>gc :GitCommit<CR>
 
 " COPY
 " copy selected to clipboard
