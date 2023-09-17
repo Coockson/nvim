@@ -24,7 +24,7 @@ vim.api.nvim_create_user_command("GitCommit", function()
 		print("Input Closed!")
 	  end,
 	  on_submit = function(value)
-		print("Input Submitted: " .. value)
+		print("Commited: " .. value)
 		vim.fn.system({"git", "commit", "-am", value})
 		vim.cmd('GitGutter')
 	  end,
