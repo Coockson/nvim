@@ -10,6 +10,7 @@ lua require('linters/terraform_fmt')
 lua require('foundation/refresh_change')
 lua require('foundation/autocomment')
 lua require('foundation/terminal')
+lua require('git/commit')
 
 " --- Basic editor configs ---
 
@@ -25,6 +26,7 @@ lua require('foundation/terminal')
 :set splitbelow
 :set winbar=%=%m\ %f
 :let mapleader=" "
+" :let g:airline#extensions#tabline#enabled = 1
 
 if has("unnamedplus")
     set clipboard=unnamedplus
@@ -116,7 +118,7 @@ nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 nnoremap <Leader>gs <cmd>Telescope git_status<cr>
 nnoremap <Leader>gb <cmd>Telescope git_branches<cr>
-nnoremap <Leader>gc <cmd>Telescope git_commits<cr>
+nnoremap <Leader>gh <cmd>Telescope git_commits<cr>
 nnoremap <Leader>s <cmd>Telescope current_buffer_fuzzy_find<cr>
 
 " Working with tabs
@@ -153,11 +155,7 @@ nnoremap <Leader>o <C-o><CR>
 
 
 " See git files
-" nnoremap <Leader>d :GFiles<CR>
-" Search in all files
-" nnoremap <Leader>f :Ag<CR>
-" See open buffers (editors)
-" nnoremap <Leader>b :Buffers<CR>
+nnoremap <Leader>gc :GitCommit<CR>
 
 " COPY
 " copy selected to clipboard
