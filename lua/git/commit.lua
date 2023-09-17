@@ -8,7 +8,7 @@ vim.api.nvim_create_user_command("GitCommit", function()
 		width = 75,
 	  },
 	  border = {
-		style = "single",
+ 		style = "single",
 		text = {
 		  top = "[Commit Message]",
 		  top_align = "center",
@@ -19,7 +19,7 @@ vim.api.nvim_create_user_command("GitCommit", function()
 	  },
 	}, {
 	  prompt = "> ",
-	  default_value = "",
+	  default_value = "feat: ",
 	  on_close = function()
 		print("Input Closed!")
 	  end,
@@ -37,4 +37,10 @@ vim.api.nvim_create_user_command("GitCommit", function()
 	input:on(event.BufLeave, function()
 	  input:unmount()
 	end)
+
+	-- close terminal with esc
+	input:map("n", "<esc>", function(bufnr)
+      input:unmount()
+	end, { noremap = true })
+
 end, {})

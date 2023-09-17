@@ -28,6 +28,6 @@ vim.api.nvim_create_user_command("PopTerminal", function()
 
 	-- close terminal with esc
 	popup:map("n", "<esc>", function(bufnr)
-	  vim.cmd('bd!')
+      popup:unmount()
 	end, { noremap = true })
 end, {})

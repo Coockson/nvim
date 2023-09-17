@@ -27,7 +27,7 @@ lua require('git/commit')
 :set splitbelow
 :set winbar=%=%m\ %f
 :let mapleader=" "
-" :let g:airline#extensions#tabline#enabled = 1
+:let g:airline#extensions#tabline#enabled = 1
 
 if has("unnamedplus")
     set clipboard=unnamedplus
