@@ -5,7 +5,7 @@ vim.api.nvim_create_user_command("GitCommit", function()
 	local input = Input({
 	  position = "50%",
 	  size = {
-		width = 30,
+		width = 75,
 	  },
 	  border = {
 		style = "single",
