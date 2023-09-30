@@ -27,6 +27,8 @@ function getCommentSign (s)
 		return hash
 	elseif s == ".rs" then
 		return slash 
+	elseif s == ".go" then
+		return slash
 	end
 end
 
