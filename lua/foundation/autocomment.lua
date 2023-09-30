@@ -6,7 +6,7 @@
 local hash = "# "
 local slash = "\\/\\/ "
 local dash = "-- "
-
+local quote = "\" "
 
 -- Add the file types and the corresponding comment sign
 function getCommentSign (s)
@@ -29,6 +29,8 @@ function getCommentSign (s)
 		return slash 
 	elseif s == ".go" then
 		return slash
+	elseif s == ".vim" then
+		return quote
 	end
 end
 

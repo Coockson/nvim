@@ -46,7 +46,7 @@ Plug 'https://github.com/preservim/nerdtree' " NerdTree
 Plug 'Xuyuanp/nerdtree-git-plugin' " SHow git changes in nerdtree
 Plug 'https://github.com/airblade/vim-gitgutter' " Show changes in editor
 Plug 'https://github.com/tpope/vim-commentary' " For Commenting gcc & gc
-Plug 'https://github.com/vim-airline/vim-airline' " Status bar
+" Plug 'https://github.com/vim-airline/vim-airline' " Status bar
 Plug 'https://github.com/lifepillar/pgsql.vim' " PSQL Pluging needs :SQLSetType pgsql.vim
 Plug 'https://github.com/ap/vim-css-color' " CSS Color Preview
 Plug 'https://github.com/rafi/awesome-vim-colorschemes' " Retro Scheme
@@ -64,6 +64,7 @@ Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.1' }
 Plug 'fannheyward/telescope-coc.nvim'
 Plug 'tomasiser/vim-code-dark' " VS Code colorscheme
 Plug 'MunifTanjim/nui.nvim'
+Plug 'nvim-lualine/lualine.nvim'
 
 set encoding=UTF-8
 
@@ -285,6 +286,10 @@ EOF
 lua << EOF
 	require('telescope').load_extension('coc')
 EOF
+
+lua << END
+	require('lualine').setup()
+END
 
 " --- Coc Keybindings ---
 "  Copied from https://github.com/neoclide/coc.nvim
