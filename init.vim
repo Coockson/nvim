@@ -4,7 +4,6 @@
 
 
 " --- Custom Lua plugins ---
-
 lua require('linters/python_black')
 lua require('linters/terraform_fmt')
 lua require('foundation/refresh_change')
