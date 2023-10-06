@@ -124,10 +124,10 @@ vim.api.nvim_create_user_command("GitCommit", function()
 
     local job_id = vim.fn.jobstart("pwd | python3 commit-generator.py -", {
         on_exit = function(_, exit_code)
---             if exit_code == 0 then
+             if exit_code == 0 then
                 local bufnr = vim.fn.bufnr('%')
                 local result = vim.fn.getbufline(bufnr, 1, '$')
-                local result_str = table.concat(result, '\n')
+                local result_str = table.concat(result)
 
                 local input = Input({
                     position = "50%",
@@ -169,9 +169,9 @@ vim.api.nvim_create_user_command("GitCommit", function()
                 input:map("n", "<esc>", function()
                     input:unmount()
                 end, { noremap = true })
---             else
---                 print("Error running the command")
---             end
+            else
+                print("Error running the command")
+            end
         end,
         stdout_buffered = true,
         stderr_buffered = true,
