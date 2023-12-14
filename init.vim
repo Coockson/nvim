@@ -64,6 +64,8 @@ Plug 'fannheyward/telescope-coc.nvim'
 Plug 'tomasiser/vim-code-dark' " VS Code colorscheme
 Plug 'MunifTanjim/nui.nvim'
 Plug 'nvim-lualine/lualine.nvim'
+Plug 'https://github.com/github/copilot.vim'
+Plug 'https://github.com/meatballs/notebook.nvim'
 
 set encoding=UTF-8
 
@@ -288,6 +290,10 @@ EOF
 
 lua << END
 	require('lualine').setup()
+END
+
+lua << END
+	require('notebook').setup()
 END
 
 " --- Coc Keybindings ---
