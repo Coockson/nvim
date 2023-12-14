@@ -28,6 +28,14 @@ This repo should be cloned into `~/.config/nvim/`
 
 ### Step 3
 
+Run
+```
+sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+```
+
+### Step 4
+
 To install the plugins listed in the init.vim file run:
 ```
 :PlugInstall
