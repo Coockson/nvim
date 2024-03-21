@@ -9,7 +9,12 @@
 			],
 			"initializationOptions": {},
 			"settings": {}
-		}
+		},
+	  "ocaml-lsp": {
+		"command": "opam",
+		"args": ["config", "exec", "--", "ocamllsp"],
+		"filetypes": ["ocaml", "reason"]
+	  }
 	},
 	"diagnostic.checkCurrentLine": true,
 	"python.pythonPath": "/Users/dkMuKhCo/.pyenv/versions/neovim3/bin/python"

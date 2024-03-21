@@ -10,7 +10,6 @@ lua require('linters/terraform_fmt')
 lua require('foundation/refresh_change')
 lua require('foundation/autocomment')
 lua require('foundation/terminal')
-lua require('foundation/popup_terminal')
 lua require('git/commit')
 
 " --- Basic editor configs ---
@@ -50,7 +49,7 @@ Plug 'https://github.com/tpope/vim-commentary' " For Commenting gcc & gc
 Plug 'https://github.com/lifepillar/pgsql.vim' " PSQL Pluging needs :SQLSetType pgsql.vim
 Plug 'https://github.com/ap/vim-css-color' " CSS Color Preview
 Plug 'https://github.com/rafi/awesome-vim-colorschemes' " Retro Scheme
-Plug 'https://github.com/neoclide/coc.nvim'  " Auto Completion
+Plug 'https://github.com/neoclide/coc.nvim', {'branch': 'release'}  " Auto Completion
 Plug 'https://github.com/ryanoasis/vim-devicons' " Developer Icons
 Plug 'https://github.com/preservim/tagbar' " Tagbar for code navigation
 Plug 'https://github.com/terryma/vim-multiple-cursors' " CTRL + N for multiple cursors
@@ -60,11 +59,13 @@ Plug 'https://github.com/tpope/vim-fugitive'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.1' }
+Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.5' }
 Plug 'fannheyward/telescope-coc.nvim'
 Plug 'tomasiser/vim-code-dark' " VS Code colorscheme
 Plug 'MunifTanjim/nui.nvim'
 Plug 'nvim-lualine/lualine.nvim'
+Plug 'https://github.com/Coockson/ipynb.nvim'
+Plug 'https://github.com/Coockson/popterminal.nvim'
 
 set encoding=UTF-8
 
@@ -77,6 +78,10 @@ call plug#end()
 " mapping : to ; because I use ISO keyboard layout
 nnoremap ; :
 vnoremap ; :
+
+" mapping § to ESC for my TKL keyboard
+noremap <expr> § "\<Esc>"
+inoremap <expr> § "\<Esc>"
 
 " Mapping window movements to leader
 nnoremap <Leader>ww :winc w<CR>
@@ -126,21 +131,13 @@ nnoremap <Leader>s <cmd>Telescope current_buffer_fuzzy_find<cr>
 " Working with tabs
 nnoremap <Tab> gt
 nnoremap <Leader><Tab> gT
-" Go to tab by number
-noremap <leader>1 1gt
-noremap <leader>2 2gt
-noremap <leader>3 3gt
-noremap <leader>4 4gt
-noremap <leader>5 5gt
-noremap <leader>6 6gt
-noremap <leader>7 7gt
-noremap <leader>8 8gt
-noremap <leader>9 9gt
 
 " Mark line and jump to mark
 nnoremap <Leader>m mx
 nnoremap <Leader>mm 'x
 
+" Plugin development
+nnoremap <Leader>5 :source %<CR>
 
 " Tab for writing suggested autocomplete
 " inoremap <silent><expr> <Tab> coc#pum#visible() ? coc#_select_confirm() : "<TAB>"
@@ -174,6 +171,7 @@ nnoremap <C-s> :TerminalVSplit zsh<CR>
 
 :set completeopt-=preview " For No Previews
 
+:set rtp^="/Users/dkmukhco/.opam/default/share/ocp-indent/vim"
 
 " --- Colorschemes ---
 
@@ -191,10 +189,13 @@ let g:codedark_transparent=1																	  "-
 let g:airline_theme = 'codedark'																  "-
 " --------------------------------------------------------------------------------------------------
 
+" :colorscheme solarized-osaka
+
+" set termguicolors     " enable true colors support
+" let ayucolor="mirage"   " for dark version of theme
+" colorscheme ayu
 
 " :colorscheme jellybeans
-
-
 " :colorscheme wombat256mod
 " :colorscheme gruvbox
 " :colorscheme onedark
@@ -216,42 +217,6 @@ let g:python3_host_prog = '/Users/dkMuKhCo/.pyenv/versions/neovim3/bin/python'
 " MarkdownPreview set default theme (dark or light)
 " By default the theme is define according to the preferences of the system
 let g:mkdp_theme = 'dark'
-
-" --- Just Some Notes ---
-" :PlugClean :PlugInstall :UpdateRemotePlugins
-"
-" :CocInstall coc-python
-" :CocInstall coc-clangd
-" :CocInstall coc-snippets
-" :CocCommand snippets.edit... FOR EACH FILE TYPE
-
-" air-line
-let g:airline_powerline_fonts = 1
-
-if !exists('g:airline_symbols')
-    let g:airline_symbols = {}
-endif
-
-" airline symbols
-let g:airline_left_sep = ''
-let g:airline_left_alt_sep = ''
-let g:airline_right_sep = ''
-let g:airline_right_alt_sep = ''
-let g:airline_symbols.branch = ''
-let g:airline_symbols.readonly = ''
-let g:airline_symbols.linenr = ''
-
-" Triger `autoread` when files changes on disk
-" https://unix.stackexchange.com/questions/149209/refresh-changed-content-of-file-opened-in-vim/383044#383044
-" https://vi.stackexchange.com/questions/13692/prevent-focusgained-autocmd-running-in-command-line-editing-mode
-"autocmd FocusGained,BufEnter,CursorHold,CursorHoldI *
-"		\ if mode() !~ '\v(c|r.?|!|t)' && getcmdwintype() == '' | checktime | endif
-"
-"" Notification after file change
-"" https://vi.stackexchange.com/questions/13091/autocmd-event-for-autoread
-"autocmd FileChangedShellPost *
-"  \ echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
-
 
 
 " ----- Highlights (treesitter) -----
@@ -287,9 +252,17 @@ lua << EOF
 	require('telescope').load_extension('coc')
 EOF
 
-lua << END
+lua << EOF
 	require('lualine').setup()
-END
+EOF
+
+lua << EOF
+ 	require('popterminal')
+EOF
+
+" lua << EOF
+" 	require('ipynb')
+" EOF
 
 " --- Coc Keybindings ---
 "  Copied from https://github.com/neoclide/coc.nvim
