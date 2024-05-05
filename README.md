@@ -41,6 +41,25 @@ To install the plugins listed in the init.vim file run:
 :PlugInstall
 ```
 
+### Step 5
+
+Install lsp-config
+```
+git clone https://github.com/neovim/nvim-lspconfig ~/.config/nvim/pack/nvim/start/nvim-lspconfig
+```
+
+### Step 6
+Install all the lsp servers
+
+- Python
+`npm i -g pyright`
+
+- Terraforn
+`brew install hashicorp/tap/terraform-ls`
+
+- Lua
+`brew install lua-language-server`
+
 ## Shortcuts
 
 - `<Leader>t` toggle nerdtree

@@ -12,6 +12,40 @@ lua require('foundation/autocomment')
 lua require('foundation/terminal')
 lua require('git/commit')
 
+lua require'lspconfig'.pyright.setup{}
+lua require'lspconfig'.terraformls.setup{}
+
+lua << EOF
+	local lspconfig = require('lspconfig')
+
+	lspconfig.lua_ls.setup {
+	  settings = {
+		Lua = {
+		  runtime = {
+			-- Tell the language server which version of Lua you're using
+			-- (most likely LuaJIT in the case of Neovim)
+			version = 'LuaJIT',
+		  },
+		  diagnostics = {
+			-- Get the language server to recognize the `vim` global
+			globals = {
+			  'vim',
+			  'require'
+			},
+		  },
+		  workspace = {
+			-- Make the server aware of Neovim runtime files
+			library = vim.api.nvim_get_runtime_file("", true),
+		  },
+		  -- Do not send telemetry data containing a randomized but unique identifier
+		  telemetry = {
+			enable = false,
+		  },
+		},
+	  },
+	}
+EOF
+
 " --- Basic editor configs ---
 
 :set number
@@ -64,6 +98,7 @@ Plug 'fannheyward/telescope-coc.nvim'
 Plug 'tomasiser/vim-code-dark' " VS Code colorscheme
 Plug 'MunifTanjim/nui.nvim'
 Plug 'nvim-lualine/lualine.nvim'
+Plug 'mistricky/codesnap.nvim', { 'do': 'make' }
 Plug 'https://github.com/Coockson/ipynb.nvim'
 Plug 'https://github.com/Coockson/popterminal.nvim'
 
@@ -260,78 +295,86 @@ lua << EOF
  	require('popterminal')
 EOF
 
+lua << EOF
+	require("codesnap").setup({
+	  watermark = "",
+	  bg_theme = "grape"
+	})
+EOF
+
+
 " lua << EOF
 " 	require('ipynb')
 " EOF
 
-" --- Coc Keybindings ---
-"  Copied from https://github.com/neoclide/coc.nvim
-
-" Next two is to make Coc selections visible in dark themes
-:hi CocMenuSel ctermbg=darkgrey ctermfg=yellow
-:hi CocSearch ctermfg=blue
-
-
-" Always show the signcolumn, otherwise it would shift the text each time
-" diagnostics appear/become resolved
-set signcolumn=yes
-
-" Use tab for trigger completion with characters ahead and navigate
-" NOTE: There's always complete item selected by default, you may want to enable
-" no select by `"suggest.noselect": true` in your configuration file
-" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
-" other plugin before putting this into your config
-inoremap <silent><expr> <TAB>
-      \ coc#pum#visible() ? coc#pum#next(1) :
-      \ CheckBackspace() ? "\<Tab>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
-
-" Make <CR> to accept selected completion item or notify coc.nvim to format
-" <C-g>u breaks current undo, please make your own choice
-inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
-                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-
-function! CheckBackspace() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
-" Use <c-space> to trigger completion
-if has('nvim')
-  inoremap <silent><expr> <c-space> coc#refresh()
-else
-  inoremap <silent><expr> <c-@> coc#refresh()
-endif
-
-" Use `[g` and `]g` to navigate diagnostics
-" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
-
-" GoTo code navigation
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-
-" Use K to show documentation in preview window
-nnoremap <silent> K :call ShowDocumentation()<CR>
-
-function! ShowDocumentation()
-  if CocAction('hasProvider', 'hover')
-    call CocActionAsync('doHover')
-  else
-    call feedkeys('K', 'in')
-  endif
-endfunction
-
-" Highlight the symbol and its references when holding the cursor
-autocmd CursorHold * silent call CocActionAsync('highlight')
-
-" Symbol renaming
-nmap <leader>rn <Plug>(coc-rename)
-
-" Formatting selected code
-xmap <leader>r  <Plug>(coc-format-selected)
-nmap <leader>r  <Plug>(coc-format-selected)
+" " --- Coc Keybindings ---
+" "  Copied from https://github.com/neoclide/coc.nvim
+" 
+" " Next two is to make Coc selections visible in dark themes
+" :hi CocMenuSel ctermbg=darkgrey ctermfg=yellow
+" :hi CocSearch ctermfg=blue
+" 
+" 
+" " Always show the signcolumn, otherwise it would shift the text each time
+" " diagnostics appear/become resolved
+" set signcolumn=yes
+" 
+" " Use tab for trigger completion with characters ahead and navigate
+" " NOTE: There's always complete item selected by default, you may want to enable
+" " no select by `"suggest.noselect": true` in your configuration file
+" " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" " other plugin before putting this into your config
+" inoremap <silent><expr> <TAB>
+"       \ coc#pum#visible() ? coc#pum#next(1) :
+"       \ CheckBackspace() ? "\<Tab>" :
+"       \ coc#refresh()
+" inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+" 
+" " Make <CR> to accept selected completion item or notify coc.nvim to format
+" " <C-g>u breaks current undo, please make your own choice
+" inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+"                               \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+" 
+" function! CheckBackspace() abort
+"   let col = col('.') - 1
+"   return !col || getline('.')[col - 1]  =~# '\s'
+" endfunction
+" 
+" " Use <c-space> to trigger completion
+" if has('nvim')
+"   inoremap <silent><expr> <c-space> coc#refresh()
+" else
+"   inoremap <silent><expr> <c-@> coc#refresh()
+" endif
+" 
+" " Use `[g` and `]g` to navigate diagnostics
+" " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list
+" nmap <silent> [g <Plug>(coc-diagnostic-prev)
+" nmap <silent> ]g <Plug>(coc-diagnostic-next)
+" 
+" " GoTo code navigation
+" nmap <silent> gd <Plug>(coc-definition)
+" nmap <silent> gy <Plug>(coc-type-definition)
+" nmap <silent> gi <Plug>(coc-implementation)
+" nmap <silent> gr <Plug>(coc-references)
+" 
+" " Use K to show documentation in preview window
+" nnoremap <silent> K :call ShowDocumentation()<CR>
+" 
+" function! ShowDocumentation()
+"   if CocAction('hasProvider', 'hover')
+"     call CocActionAsync('doHover')
+"   else
+"     call feedkeys('K', 'in')
+"   endif
+" endfunction
+" 
+" " Highlight the symbol and its references when holding the cursor
+" autocmd CursorHold * silent call CocActionAsync('highlight')
+" 
+" " Symbol renaming
+" nmap <leader>rn <Plug>(coc-rename)
+" 
+" " Formatting selected code
+" xmap <leader>r  <Plug>(coc-format-selected)
+" nmap <leader>r  <Plug>(coc-format-selected)
