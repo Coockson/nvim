@@ -46,6 +46,14 @@ lua << EOF
 	}
 EOF
 
+
+lua vim.api.nvim_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', { noremap = true, silent = true })
+lua vim.api.nvim_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', { noremap = true, silent = true })
+
+" Use Tab to trigger autocompletion and accept suggestions
+inoremap <expr> <Tab> pumvisible() ? "\<C-y>" : "\<C-g>u\<C-t>"
+
+
 " --- Basic editor configs ---
 
 :set number
