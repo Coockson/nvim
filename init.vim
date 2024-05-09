@@ -84,6 +84,7 @@ endif
 call plug#begin()
 
 Plug 'http://github.com/tpope/vim-surround' " Surrounding ysw)
+Plug 'nvim-tree/nvim-web-devicons'
 Plug 'nvim-tree/nvim-tree.lua'
 Plug 'https://github.com/airblade/vim-gitgutter' " Show changes in editor
 Plug 'https://github.com/tpope/vim-commentary' " For Commenting gcc & gc
@@ -106,8 +107,7 @@ Plug 'fannheyward/telescope-coc.nvim'
 Plug 'tomasiser/vim-code-dark' " VS Code colorscheme
 Plug 'MunifTanjim/nui.nvim'
 Plug 'nvim-lualine/lualine.nvim'
-Plug 'mistricky/codesnap.nvim', { 'do': 'make' }
-Plug 'https://github.com/Coockson/ipynb.nvim'
+"Plug 'https://github.com/Coockson/ipynb.nvim'
 Plug 'https://github.com/Coockson/popterminal.nvim'
 
 set encoding=UTF-8
@@ -297,13 +297,6 @@ EOF
 
 lua << EOF
  	require('popterminal')
-EOF
-
-lua << EOF
-	require("codesnap").setup({
-	  watermark = "",
-	  bg_theme = "grape"
-	})
 EOF
 
 lua require("nvim-tree").setup()
