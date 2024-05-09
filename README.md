@@ -60,6 +60,9 @@ Install all the lsp servers
 - Lua
 `brew install lua-language-server`
 
+- Typescript
+`npm install -g typescript typescript-language-server`
+
 ## Shortcuts
 
 - `<Leader>t` toggle nerdtree
