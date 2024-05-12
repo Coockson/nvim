@@ -84,7 +84,6 @@ Plug 'https://github.com/ap/vim-css-color' -- CSS Color Preview
 Plug 'https://github.com/rafi/awesome-vim-colorschemes' -- Retro Scheme
 Plug 'https://github.com/preservim/tagbar' -- Tagbar for code navigation
 Plug('junegunn/fzf', {['do'] = vim.fn['fzf#install']})
-Plug 'https://github.com/tpope/vim-fugitive'
 Plug( 'iamcco/markdown-preview.nvim', {['do']= vim.fn['cd app && yarn install']})
 Plug( 'nvim-treesitter/nvim-treesitter', {['do']= vim.fn[':TSUpdate']})
 Plug 'nvim-lua/plenary.nvim'
@@ -93,6 +92,7 @@ Plug 'tomasiser/vim-code-dark' -- VS Code colorscheme
 Plug 'MunifTanjim/nui.nvim'
 Plug 'nvim-lualine/lualine.nvim'
 Plug 'https://github.com/Coockson/popterminal.nvim'
+Plug 'lewis6991/gitsigns.nvim'
 vim.call('plug#end')
 -- }}}
 
@@ -174,6 +174,7 @@ vim.api.nvim_set_keymap('n', '<Leader>o', '<C-o><CR>', {noremap = true})
 
 -- See git files
 vim.api.nvim_set_keymap('n', '<Leader>gc', ':GitCommit<CR>', {noremap = true})
+vim.api.nvim_set_keymap('n', '<Leader>gb', ':Gitsigns toggle_current_line_blame<CR>', {noremap = true})
 -- }}}
 
 -- {{{ Colorscheme
@@ -204,5 +205,10 @@ require("nvim-treesitter.configs").setup({
 require('lualine').setup()
 require('popterminal')
 require("nvim-tree").setup()
+require('gitsigns').setup(
+	{
+		current_line_blame_formatter = '<author>, <author_time:%d-%m-%Y> - <summary>'
+	}
+)
 
 --- }}}
