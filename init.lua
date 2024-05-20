@@ -183,7 +183,7 @@ vim.api.nvim_set_keymap('n', '<Leader>o', '<C-o><CR>', {noremap = true})
 
 -- See git files
 vim.api.nvim_set_keymap('n', '<Leader>gc', ':GitCommit<CR>', {noremap = true})
-vim.api.nvim_set_keymap('n', '<Leader>gb', ':Gitsigns toggle_current_line_blame<CR>', {noremap = true})
+vim.api.nvim_set_keymap('n', '<Leader>gb', ':Gitsigns blame_line<CR>', {noremap = true})
 -- }}}
 
 -- {{{ Colorscheme
