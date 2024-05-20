@@ -43,6 +43,7 @@ require'lspconfig'.pyright.setup{}
 require'lspconfig'.terraformls.setup{}
 require'lspconfig'.tsserver.setup {}
 require'lspconfig'.rust_analyzer.setup{}
+require'lspconfig'.gopls.setup{}
 
 -- LSP go to definition and go to resource keybindings
 vim.api.nvim_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', { noremap = true, silent = true })
@@ -93,6 +94,14 @@ Plug 'MunifTanjim/nui.nvim'
 Plug 'nvim-lualine/lualine.nvim'
 Plug 'https://github.com/Coockson/popterminal.nvim'
 Plug 'lewis6991/gitsigns.nvim'
+Plug( 'rebelot/kanagawa.nvim', { ['as']= 'kanagawa' }) -- Colortheme
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/cmp-cmdline'
+Plug 'hrsh7th/nvim-cmp'
+Plug 'hrsh7th/cmp-vsnip'
+Plug 'hrsh7th/vim-vsnip'
 vim.call('plug#end')
 -- }}}
 
@@ -179,16 +188,20 @@ vim.api.nvim_set_keymap('n', '<Leader>gb', ':Gitsigns toggle_current_line_blame<
 
 -- {{{ Colorscheme
 
--- Set colorscheme to codedark
-vim.cmd('colorscheme codedark')
+vim.cmd('colorscheme kanagawa')
 
--- Set terminal colors to 256
-vim.api.nvim_set_option('termguicolors', true)
-
--- Set codedark options
-vim.g.codedark_conservative = 1    -- Conservative style
-vim.g.codedark_italics = 1         -- Italicized comments
-vim.g.codedark_transparent = 1     -- Transparent background
+-- -- Set colorscheme to codedark
+-- vim.cmd('colorscheme codedark')
+-- 
+--     vim.o.termguicolors = true
+--     vim.o.background = "dark"
+-- -- Set terminal colors to 256
+-- vim.api.nvim_set_option('termguicolors', true)
+-- 
+-- -- Set codedark options
+-- vim.g.codedark_conservative = 1    -- Conservative style
+-- vim.g.codedark_italics = 1         -- Italicized comments
+-- vim.g.codedark_transparent = 1     -- Transparent background
 -- }}}
 
 -- {{{ Plugin Configs
@@ -211,4 +224,80 @@ require('gitsigns').setup(
 	}
 )
 
+local cmp = require'cmp'
+
+cmp.setup({
+snippet = {
+  -- REQUIRED - you must specify a snippet engine
+  expand = function(args)
+	vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
+	-- require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
+	-- require('snippy').expand_snippet(args.body) -- For `snippy` users.
+	-- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
+	-- vim.snippet.expand(args.body) -- For native neovim snippets (Neovim v0.10+)
+  end,
+},
+window = {
+  -- completion = cmp.config.window.bordered(),
+  -- documentation = cmp.config.window.bordered(),
+},
+mapping = cmp.mapping.preset.insert({
+  ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+  ['<C-f>'] = cmp.mapping.scroll_docs(4),
+  ['<C-Space>'] = cmp.mapping.complete(),
+  ['<C-e>'] = cmp.mapping.abort(),
+  ['<Tab>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+}),
+sources = cmp.config.sources({
+  { name = 'nvim_lsp' },
+  { name = 'vsnip' }, -- For vsnip users.
+  -- { name = 'luasnip' }, -- For luasnip users.
+  -- { name = 'ultisnips' }, -- For ultisnips users.
+  -- { name = 'snippy' }, -- For snippy users.
+}, {
+  { name = 'buffer' },
+})
+})
+
+-- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
+cmp.setup.cmdline({ '/', '?' }, {
+mapping = cmp.mapping.preset.cmdline(),
+sources = {
+  { name = 'buffer' }
+}
+})
+
+-- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+cmp.setup.cmdline(':', {
+mapping = cmp.mapping.preset.cmdline(),
+sources = cmp.config.sources({
+  { name = 'path' }
+}, {
+  { name = 'cmdline' }
+}),
+matching = { disallow_symbol_nonprefix_matching = false }
+})
+
+-- Set up lspconfig.
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
+-- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
+require('lspconfig')['pyright'].setup {
+	capabilities = capabilities
+}
+
+require('lspconfig')['terraformls'].setup {
+	capabilities = capabilities
+}
+
+require('lspconfig')['tsserver'].setup {
+	capabilities = capabilities
+}
+
+require('lspconfig')['rust_analyzer'].setup {
+	capabilities = capabilities
+}
+
+require('lspconfig')['gopls'].setup {
+	capabilities = capabilities
+}
 --- }}}
