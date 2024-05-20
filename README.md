@@ -54,7 +54,7 @@ Install all the lsp servers
 - Python
 `npm i -g pyright`
 
-- Terraforn
+- Terraform
 `brew install hashicorp/tap/terraform-ls`
 
 - Lua
@@ -62,6 +62,9 @@ Install all the lsp servers
 
 - Typescript
 `npm install -g typescript typescript-language-server`
+
+- Gopls
+`go install golang.org/x/tools/gopls@latest`
 
 ## Shortcuts
 
