@@ -184,6 +184,11 @@ vim.api.nvim_set_keymap('n', '<Leader>o', '<C-o><CR>', {noremap = true})
 -- See git files
 vim.api.nvim_set_keymap('n', '<Leader>gc', ':GitCommit<CR>', {noremap = true})
 vim.api.nvim_set_keymap('n', '<Leader>gb', ':Gitsigns blame_line<CR>', {noremap = true})
+
+-- Run commands in buffer and store output in buffer
+vim.api.nvim_set_keymap('n', '<Leader>xp', 'yy2o<ESC>kpV:!/bin/bash<CR>', {noremap = true})
+vim.api.nvim_set_keymap('v', '<Leader>xp', "y'<P'<O<ESC>'>o<ESC>:<C-u>'<,'>!/bin/bash<CR>", {noremap = true})
+
 -- }}}
 
 -- {{{ Colorscheme
