@@ -44,6 +44,7 @@ require'lspconfig'.terraformls.setup{}
 require'lspconfig'.tsserver.setup {}
 require'lspconfig'.rust_analyzer.setup{}
 require'lspconfig'.gopls.setup{}
+require'lspconfig'.bashls.setup{}
 
 -- LSP go to definition and go to resource keybindings
 vim.api.nvim_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', { noremap = true, silent = true })
@@ -303,6 +304,9 @@ require('lspconfig')['rust_analyzer'].setup {
 }
 
 require('lspconfig')['gopls'].setup {
+	capabilities = capabilities
+}
+require('lspconfig')['bashls'].setup {
 	capabilities = capabilities
 }
 --- }}}

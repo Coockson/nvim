@@ -66,6 +66,10 @@ Install all the lsp servers
 - Gopls
 `go install golang.org/x/tools/gopls@latest`
 
+- Bash Languege Server
+`brew install shellcheck`
+`npm i -g bash-language-server`
+
 ## Shortcuts
 
 - `<Leader>t` toggle nerdtree
