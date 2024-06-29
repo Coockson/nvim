@@ -223,7 +223,11 @@ require("nvim-treesitter.configs").setup({
 })
 require('lualine').setup()
 require('popterminal')
-require("nvim-tree").setup()
+require("nvim-tree").setup({
+	view = {
+		preserve_window_proportions = true,
+	},
+})
 require('gitsigns').setup(
 	{
 		current_line_blame_formatter = '<author>, <author_time:%d-%m-%Y> - <summary>'
